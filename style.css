@@ -159,7 +159,6 @@ textarea::placeholder {
     padding-bottom: 20px;
 }
 .person-info > p {
-    margin-top: 10px;
     word-break: break-all;
 }
 .additional-info {
@@ -204,6 +203,9 @@ li {
     border: none;
     width: 50%;
     height: 7%;
+}
+.active-text {
+    margin-top: 10px;
 }
 .hide {
     display: none;
