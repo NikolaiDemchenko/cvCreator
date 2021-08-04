@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Arial, serif;
 }
 
 body {
@@ -24,8 +25,9 @@ main {
 }
 
 /*personalDetails*/
-.photo-box {
-    align-items: center;
+.photo-box > p{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .photo-box:hover {
     cursor: pointer;
@@ -43,12 +45,50 @@ main {
     display: flex;
     flex-direction: column;
 }
-input{
+input {
     margin-top: 4px;
-    width: 200px;
-    height: 20px;
+    width: 250px;
+    height: 40px;
     border: none;
+    border-radius: 5px;
     background-color: whitesmoke;
+    text-indent: 10px;
+}
+input[type="file"] {
+    text-indent: 0px;
+    width: 250px;
+    height: 22px;
+}
+input:focus{
+    background: #ffe;
+    outline: none;
+}
+#last-name:focus {
+    border: 1px solid blue;
+}
+#first-name:focus {
+    border: 1px solid blue;
+}
+#date-birth:focus {
+    border: 1px solid blue;
+}
+#email:focus {
+    border: 1px solid blue;
+}
+#cellphone:focus {
+    border: 1px solid blue;
+}
+#block-header:focus {
+    border: 1px solid blue;
+}
+#field-header:focus {
+    border: 1px solid blue;
+}
+#field-content:focus {
+    border: 1px solid blue;
+}
+input:focus {
+    border: blue;
 }
 textarea {
     width: 200px;
@@ -56,8 +96,15 @@ textarea {
     border: none;
     background-color: whitesmoke;
 }
-
-/*add Section*/
+textarea:focus{
+    background: #ffe;
+    outline: none;
+}
+textarea::placeholder {
+    padding-top: 16px;
+    padding-left: 10px;
+}
+    /*add Section*/
 .add-section {
     display: flex;
     flex-direction: column;
@@ -72,6 +119,7 @@ textarea {
 }
 .add-field-text:hover {
     cursor: pointer;
+    font-size: 17px;
 }
 .add-section-text {
     color: blue;
@@ -80,6 +128,7 @@ textarea {
 }
 .add-section-text:hover {
     cursor: pointer;
+    font-size: 17px;
 }
 .info-box > div {
     display: flex;
@@ -109,6 +158,10 @@ textarea {
     align-items: center;
     padding-bottom: 20px;
 }
+.person-info > p {
+    margin-top: 10px;
+    word-break: break-all;
+}
 .additional-info {
     background-color: aliceblue;
     width: 30%;
@@ -116,8 +169,9 @@ textarea {
     flex-direction: column;
 }
 .additional-info > div {
-    margin: 10px 0 10px 10px;
-
+    margin: 10px;
+    background: gainsboro;
+    word-break: break-all;
 }
 li {
     padding-left: 20px;
@@ -136,7 +190,20 @@ li {
     box-shadow: 0 0 0 3000px rgba(0, 0, 0, 0.2);
 }
 .cv-create-btn {
-
+    cursor: pointer;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    width: 5%;
+    height: 3%;
+}
+.add-info {
+    cursor: pointer;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    width: 50%;
+    height: 7%;
 }
 .hide {
     display: none;
