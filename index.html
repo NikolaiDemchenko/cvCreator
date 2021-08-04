@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV creator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 class="header">CV Creator</h1>
+<main>
+    <section class="personal-details">
+        <h2>Personal Details</h2>
+        <div class="details-input">
+            <div class="photo-box">
+                <img class="photo" src="img/photo.svg" alt="photo" width="50px" height="50px">
+                <p>Upload photo</p>
+            </div>
+            <div class="first-name-box">
+                <label for="first-name">First name</label>
+                <input id="first-name" type="text"/>
+            </div>
+            <div class="last-name-box">
+                <label for="last-name">Last name</label>
+                <input id="last-name" type="text"/>
+            </div>
+            <div class="date-birth-box">
+                <label for="date-birth">Date of birth</label>
+                <input id="date-birth" type="date"/>
+            </div>
+            <div class="email-box">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="example@google.com"/>
+            </div>
+            <div class="cellphone-box">
+                <label for="cellphone">Phone</label>
+                <input id="cellphone" type="tel" placeholder="+000000000000"/>
+            </div>
+        </div>
+    </section>
+    <section class="add-section">
+        <h2>Additional information</h2>
+        <div class="info-box hide">
+            <div class="block-header-box">
+                <label for="block-header">Block Header</label>
+                <input id="block-header" type="text"/>
+            </div>
+            <div class="field-box 1">
+                <div class="field-header-box">
+                    <label for="field-header">Field Header</label>
+                    <textarea id="field-header" type="text"></textarea>
+                </div>
+                <div class="field-content-box">
+                    <label for="field-content">Field Content</label>
+                    <textarea id="field-content" type="text"></textarea>
+                </div>
+            </div>
+            <p class="add-field-text">+ Add field</p>
+        </div>
+        <p class="add-section-text">+ Add section</p>
+        <button class="add-info hide">Add info to Data</button>
+    </section>
+</main>
+<div class="add-photo-box hide">
+    <input class="add-photo" type="file">
+</div>
+<button class="cv-create-btn">Create cv</button>
+<div class="cv hide">
+    <div class="person-info">
+        <img class="cv-photo" src="img/photo.svg" alt="" width="50px" height="50px">
+        <p class="first-name"></p>
+        <p class="last-name"></p>
+        <p class="date-birth"></p>
+        <p class="email"></p>
+        <p class="cellphone"></p>
+    </div>
+    <div class="additional-info"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
