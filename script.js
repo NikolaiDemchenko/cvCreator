@@ -45,17 +45,33 @@ function cvCreator() {
          cvPhoto = document.querySelector('.cv-photo');
 
     cv.classList.remove('hide');
-    Boolean(data.firstName) === true ? firstName.textContent = data.firstName : null;
-    Boolean(data.lastName) === true ? lastName.textContent = data.lastName : null;
+
+    if (Boolean(data.firstName) === true) {
+        firstName.textContent = data.firstName;
+        firstName.classList.add('active-text');
+    }
+    if (Boolean(data.lastName) === true) {
+        lastName.textContent = data.lastName;
+        lastName.classList.add('active-text');
+    }
     if (Boolean(data.dateOfBirth) === true) {
         let date = new Date(data.dateOfBirth);
         dateBirth.textContent = date.getDate() + '.';
         dateBirth.textContent += (+date.getMonth() + 1) + '.';
         dateBirth.textContent += date.getFullYear();
     }
-    Boolean(data.email) === true ? email.textContent = data.email : null;
-    Boolean(data.phone)=== true ? cellphone.textContent = data.phone : null;
-    Boolean(data.cvPhotoUrl) === true ? cvPhoto.src = data.cvPhotoUrl : null;
+    if (Boolean(data.email) === true) {
+        email.textContent = data.email;
+        email.classList.add('active-text');
+    }
+    if (Boolean(data.phone) === true) {
+        cellphone.textContent = data.phone;
+        cellphone.classList.add('active-text');
+    }
+    if (Boolean(data.cvPhotoUrl) === true) {
+        cvPhoto.src = data.cvPhotoUrl;
+        cvPhoto.classList.add('active-text');
+    }
     addAdditionalInfoToCv();
 
 }
