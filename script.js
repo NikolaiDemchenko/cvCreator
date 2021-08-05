@@ -10,70 +10,67 @@ const data = {
 
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return re.test(email.toLowerCase());
 }
 
 function validatePhone(phoneNumber) {
    const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
    return re.test(phoneNumber);
 }
+
 function validateDate(date) {
-    let validateDate = new Date(date);
-    return +validateDate.getFullYear() <= 2021 ? +validateDate.getFullYear() >= 1900 : null;
+    return +new Date(date).getFullYear() <= 2021 ? +new Date(date).getFullYear() >= 1900 : null;
 }
+
 function infoBoxCreator() {
-    const infoBox = document.querySelector('.info-box');
-    const newInfoBox = infoBox.cloneNode(true);
+    const newInfoBox = document.querySelector('.info-box').cloneNode(true);
     newInfoBox.classList.remove('hide');
     return newInfoBox;
 }
 
 function fieldCreator() {
-    const field = document.querySelector('.field-box');
-    const newField = field.cloneNode(true);
-    newField.classList.remove('1');
-    return newField;
+    return document.querySelector('.field-box').cloneNode(true);
 }
 
 function cvCreator() {
-    const cv = document.querySelector('.cv'),
-         firstName = document.querySelector('.first-name'),
-         lastName = document.querySelector('.last-name'),
-         dateBirth = document.querySelector('.date-birth'),
-         email = document.querySelector('.email'),
-         cellphone = document.querySelector('.cellphone'),
-         cvPhoto = document.querySelector('.cv-photo');
+    const firstName = document.querySelector('.first-name'),
+          lastName = document.querySelector('.last-name'),
+          dateBirth = document.querySelector('.date-birth'),
+          email = document.querySelector('.email'),
+          cellphone = document.querySelector('.cellphone'),
+          cvPhoto = document.querySelector('.cv-photo');
 
-    cv.classList.remove('hide');
+    document.querySelector('.cv').classList.remove('hide');
 
-    if (Boolean(data.firstName) === true) {
+    if (data.firstName) {
         firstName.textContent = data.firstName;
         firstName.classList.add('active-text');
     }
-    if (Boolean(data.lastName) === true) {
+    if (data.lastName) {
         lastName.textContent = data.lastName;
         lastName.classList.add('active-text');
     }
-    if (Boolean(data.dateOfBirth) === true) {
-        let date = new Date(data.dateOfBirth);
+    if (data.dateOfBirth) {
+        const date = new Date(data.dateOfBirth);
         dateBirth.textContent = date.getDate() + '.';
         dateBirth.textContent += (+date.getMonth() + 1) + '.';
         dateBirth.textContent += date.getFullYear();
+        dateBirth.classList.add('active-text');
     }
-    if (Boolean(data.email) === true) {
+    if (data.email) {
         email.textContent = data.email;
         email.classList.add('active-text');
     }
-    if (Boolean(data.phone) === true) {
+    if (data.phone) {
         cellphone.textContent = data.phone;
         cellphone.classList.add('active-text');
     }
-    if (Boolean(data.cvPhotoUrl) === true) {
+    if (data.cvPhotoUrl) {
         cvPhoto.src = data.cvPhotoUrl;
         cvPhoto.classList.add('active-text');
     }
-    addAdditionalInfoToCv();
 
+    addAdditionalInfoToCv();
 }
 
 function addAdditionalInfoToData() {
@@ -83,108 +80,88 @@ function addAdditionalInfoToData() {
           fieldContent = document.querySelectorAll('#field-content');
 
     infoBox.forEach((el, index) => {
-        if (el.classList.contains('hide') === false) {
+        if (!el.classList.contains('hide')) {
             data.addInfo.push({
                 blockHeader: null,
                 fieldHeader: [],
                 fieldContent: []
             });
+            blockHeader.forEach(bh => {
+                el.contains(bh) ? data.addInfo[index - 1].blockHeader = bh.value : null;
+            });
             fieldHeader.forEach(fh => {
-                if (el.contains(fh)) {
-                    data.addInfo[index - 1].fieldHeader.push({fieldHeaderText: fh.value});
-                }
+                el.contains(fh) ? data.addInfo[index - 1].fieldHeader.push({fieldHeaderText: fh.value}) : null;
             });
             fieldContent.forEach(fc => {
-                if (el.contains(fc)) {
-                    data.addInfo[index - 1].fieldContent.push({fieldContentText: fc.value});
-                }
-            });
-            blockHeader.forEach(bh => {
-                if (el.contains(bh)) {
-                    data.addInfo[index - 1].blockHeader = bh.value;
-                }
+                el.contains(fc) ? data.addInfo[index - 1].fieldContent.push({fieldContentText: fc.value}) : null;
             });
         }
     });
 }
 
 function additionalInfoCreator() {
-    const additionalInfo = document.querySelector('.additional-info');
     data.addInfo.forEach(el => {
         const div = document.createElement('div'),
-            p = document.createElement('p'),
-            ul = document.createElement('ul');
-        if (el.blockHeader !== '') {
+              p = document.createElement('p'),
+              ul = document.createElement('ul');
+
+        if (el.blockHeader) {
             p.textContent = el.blockHeader;
             div.append(p);
+
             el.fieldHeader.forEach((fh, index) => {
                 const li = document.createElement('li');
-                try {
-                    if (fh.fieldHeaderText === '' || el.fieldContent[index].fieldContentText === '') {
-                        throw new Error('empty Field');
-                    }
+                if (fh.fieldHeaderText && el.fieldContent[index].fieldContentText) {
                     li.textContent = `${fh.fieldHeaderText} : ${el.fieldContent[index].fieldContentText}`;
                     ul.append(li);
-                } catch (e) {
-                    console.log(e);
                 }
-
             });
+
             div.appendChild(ul);
-            additionalInfo.append(div);
+            document.querySelector('.additional-info').append(div);
         }
     });
 }
 
 function addAdditionalInfoToCv() {
     const additionalInfo = document.querySelector('.additional-info');
-    new Promise(((resolve, reject) => {
-        additionalInfo.hasChildNodes() === false ? resolve() : reject();
-    })).then(() => {
-        additionalInfoCreator();
-    }).catch(() => {
+    if (additionalInfo.hasChildNodes()) {
         while (additionalInfo.firstChild) {
             additionalInfo.removeChild(additionalInfo.firstChild);
         }
-        additionalInfoCreator();
-    });
+    }
+    additionalInfoCreator();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
     const main = document.querySelector('main'),
           cvBtn = document.querySelector('.cv-create-btn'),
           addInfoBtn = document.querySelector('.add-info'),
-          photoBox = document.querySelector('.photo-box');
+          photoBox = document.querySelector('.photo-box'),
+          addPhoto = document.querySelector('.add-photo');
 
     main.addEventListener('click', (event) => {
         if (event.target.classList.contains('add-section-text'))  {
             event.target.before(infoBoxCreator());
             addInfoBtn.classList.remove('hide');
         }
-        if (event.target.classList.contains('add-field-text'))  {
-            event.target.before(fieldCreator());
-        }
+        event.target.classList.contains('add-field-text') ? event.target.before(fieldCreator()) : null;
     });
 
     main.addEventListener('input', (event) => {
-        if (event.target.id === 'first-name') {
-            data.firstName = event.target.value;
-        }
-        if (event.target.id === 'last-name') {
-            data.lastName = event.target.value;
-        }
+        event.target.id === 'first-name' ? data.firstName = event.target.value : null;
+        event.target.id === 'last-name' ? data.lastName = event.target.value : null;
         if (event.target.id === 'date-birth') {
             if (validateDate(event.target.value)) {
                 event.target.style.color = 'green';
                 data.dateOfBirth = event.target.value;
             }
             else {
-                data.dateOfBirth = null;
                 event.target.style.color = 'red';
             }
         }
         if (event.target.id === 'email') {
-            if (validateEmail(event.target.value) !== false) {
+            if (validateEmail(event.target.value)) {
                 event.target.style.color = 'green';
                 data.email = event.target.value;
             }
@@ -193,7 +170,7 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }
         if (event.target.id === 'cellphone') {
-            if (validatePhone(event.target.value) !== false) {
+            if (validatePhone(event.target.value)) {
                 event.target.style.color = 'green';
                 data.phone = event.target.value;
             }
@@ -206,27 +183,18 @@ window.addEventListener("DOMContentLoaded", () => {
     cvBtn.addEventListener('click', cvCreator);
 
     addInfoBtn.addEventListener('click', () => {
-        if (data.addInfo[0] === undefined) {
-            addAdditionalInfoToData();
-        }
-        else {
-            data.addInfo = [];
-            addAdditionalInfoToData();
-        }
+        data.addInfo[0] ? data.addInfo = [] : null;
+        addAdditionalInfoToData();
     });
+
     photoBox.addEventListener('click', () => {
-        const addPhotoBox = document.querySelector('.add-photo-box');
-        addPhotoBox.classList.remove('hide');
+        document.querySelector('.add-photo-box').classList.remove('hide');
     });
-    const addPhoto = document.querySelector('.add-photo');
+
     addPhoto.addEventListener('change', () => {
-        const addPhotoBox = document.querySelector('.add-photo-box'),
-              photo = document.querySelector('.photo');
-        addPhotoBox.classList.add('hide');
-        photo.src = URL.createObjectURL(addPhoto.files[0]);
+        document.querySelector('.add-photo-box').classList.add('hide');
         data.cvPhotoUrl = URL.createObjectURL(addPhoto.files[0]);
+        document.querySelector('.photo').src = data.cvPhotoUrl;
     });
 });
-
-validateDate('1212-12-23');
 
