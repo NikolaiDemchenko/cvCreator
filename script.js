@@ -18,9 +18,7 @@ function validatePhone(phoneNumber) {
    return re.test(phoneNumber);
 }
 
-function validateDate(date) {
-    return +new Date(date).getFullYear() <= 2021 ? +new Date(date).getFullYear() >= 1900 : null;
-}
+const validateDate = (date) => +new Date(date).getFullYear() <= 2021 ? +new Date(date).getFullYear() >= 1900 : null;
 
 function infoBoxCreator() {
     const newInfoBox = document.querySelector('.info-box').cloneNode(true);
@@ -28,9 +26,7 @@ function infoBoxCreator() {
     return newInfoBox;
 }
 
-function fieldCreator() {
-    return document.querySelector('.field-box').cloneNode(true);
-}
+const fieldCreator = () => document.querySelector('.field-box').cloneNode(true);
 
 function cvCreator() {
     const firstName = document.querySelector('.first-name'),
@@ -77,6 +73,8 @@ function addAdditionalInfoToData() {
           blockHeader = document.querySelectorAll('#block-header'),
           fieldHeader = document.querySelectorAll('#field-header'),
           fieldContent = document.querySelectorAll('#field-content');
+
+    data.addInfo[0] ? data.addInfo = [] : null;
 
     infoBox.forEach((el, index) => {
         if (!el.classList.contains('hide')) {
@@ -179,10 +177,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     cvBtn.addEventListener('click', cvCreator);
 
-    addInfoBtn.addEventListener('click', () => {
-        data.addInfo[0] ? data.addInfo = [] : null;
-        addAdditionalInfoToData();
-    });
+    addInfoBtn.addEventListener('click', addAdditionalInfoToData);
 
     photoBox.addEventListener('click', () => {
         document.querySelector('.add-photo-box').classList.remove('hide');
