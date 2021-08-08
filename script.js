@@ -69,8 +69,7 @@ function cvCreator() {
         cvPhoto.src = data.cvPhotoUrl;
         cvPhoto.classList.add('active-text');
     }
-
-    addAdditionalInfoToCv();
+    additionalInfoCreator();
 }
 
 function addAdditionalInfoToData() {
@@ -100,6 +99,14 @@ function addAdditionalInfoToData() {
 }
 
 function additionalInfoCreator() {
+    const additionalInfo = document.querySelector('.additional-info');
+
+    if (additionalInfo.hasChildNodes()) {
+        while (additionalInfo.firstChild) {
+            additionalInfo.removeChild(additionalInfo.firstChild);
+        }
+    }
+
     data.addInfo.forEach(el => {
         const div = document.createElement('div'),
               p = document.createElement('p'),
@@ -121,16 +128,6 @@ function additionalInfoCreator() {
             document.querySelector('.additional-info').append(div);
         }
     });
-}
-
-function addAdditionalInfoToCv() {
-    const additionalInfo = document.querySelector('.additional-info');
-    if (additionalInfo.hasChildNodes()) {
-        while (additionalInfo.firstChild) {
-            additionalInfo.removeChild(additionalInfo.firstChild);
-        }
-    }
-    additionalInfoCreator();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
